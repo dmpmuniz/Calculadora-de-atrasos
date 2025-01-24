@@ -1,0 +1,90 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Calculadora de Atraso</title>
+  <style>
+    body {
+      font-family: Arial, sans-serif;
+      margin: 20px;
+      padding: 20px;
+      background-color: #f9f9f9;
+    }
+    h1 {
+      color: #333;
+    }
+    label, input, button {
+      display: block;
+      margin: 10px 0;
+    }
+    #resultado {
+      margin-top: 20px;
+      padding: 10px;
+      background-color: #e3f2fd;
+      border: 1px solid #90caf9;
+      color: #0d47a1;
+    }
+    footer {
+      margin-top: 30px;
+      text-align: center;
+      font-size: 14px;
+      color: #555;
+    }
+  </style>
+</head>
+<body>
+  <h1>Calculadora de Atraso</h1>
+  <label for="dataRetirada">Data da Retirada:</label>
+  <input type="date" id="dataRetirada">
+
+  <label for="dataPrevista">Data Prevista de Devolução:</label>
+  <input type="date" id="dataPrevista">
+
+  <label for="dataEntrega">Data de Entrega:</label>
+  <input type="date" id="dataEntrega">
+
+  <button onclick="calcularAtraso()">Calcular</button>
+
+  <div id="resultado"></div>
+
+  <footer>
+    Criado por Daniel Muniz
+  </footer>
+
+  <script>
+    function calcularAtraso() {
+      const dataRetirada = new Date(document.getElementById("dataRetirada").value);
+      const dataPrevista = new Date(document.getElementById("dataPrevista").value);
+      const dataEntrega = new Date(document.getElementById("dataEntrega").value);
+      const resultadoDiv = document.getElementById("resultado");
+
+      if (dataRetirada && dataPrevista && dataEntrega) {
+        if (dataEntrega > dataPrevista) {
+          // Calcula o atraso em dias
+          const atrasoEmMilissegundos = dataEntrega - dataPrevista;
+          const atrasoEmDias = Math.ceil(atrasoEmMilissegundos / (1000 * 60 * 60 * 24));
+
+          // Calcula a data final de suspensão
+          const dataSuspensao = new Date(dataEntrega);
+          dataSuspensao.setDate(dataSuspensao.getDate() + atrasoEmDias);
+
+          // Limita a suspensão a no máximo 3 meses
+          const dataLimite = new Date(dataEntrega);
+          dataLimite.setMonth(dataLimite.getMonth() + 3);
+
+          if (dataSuspensao > dataLimite) {
+            resultadoDiv.innerHTML = `Tempo de atraso: ${atrasoEmDias} dias.<br>Suspenso até: ${dataLimite.toLocaleDateString()} (limite máximo de 3 meses).`;
+          } else {
+            resultadoDiv.innerHTML = `Tempo de atraso: ${atrasoEmDias} dias.<br>Suspenso até: ${dataSuspensao.toLocaleDateString()}.`;
+          }
+        } else {
+          resultadoDiv.innerHTML = "Sem atraso. Obrigado por devolver no prazo!";
+        }
+      } else {
+        resultadoDiv.innerHTML = "Por favor, preencha todas as datas corretamente.";
+      }
+    }
+  </script>
+</body>
+</html>
