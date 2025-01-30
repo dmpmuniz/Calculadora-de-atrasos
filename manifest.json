@@ -1,21 +1,20 @@
 {
-  "name": "DMP Calc Atraso",
-  "short_name": "Calc Atraso",
-  "description": "Calcula o tempo de atraso de livros e aplica suspensão",
-  "start_url": "/index.html",
+  "name": "Calculadora de Atraso",
+  "short_name": "CalcAtraso",
+  "start_url": "/",
   "display": "standalone",
-  "background_color": "#ffffff",
-  "theme_color": "#007bff",
+  "background_color": "#007BFF",
+  "theme_color": "#007BFF",
   "icons": [
     {
-      "src": "icon-192.png",
-      "sizes": "192x192",
-      "type": "image/png"
+      "src": "/icon-192.png",
+      "type": "image/png",
+      "sizes": "192x192"
     },
     {
-      "src": "icon-512.png",
-      "sizes": "512x512",
-      "type": "image/png"
+      "src": "/icon-512.png",
+      "type": "image/png",
+      "sizes": "512x512"
     }
   ]
 }
