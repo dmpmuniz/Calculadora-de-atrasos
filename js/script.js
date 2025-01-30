@@ -1,20 +1,8 @@
 document.addEventListener("DOMContentLoaded", () => {
   const form = document.getElementById("calcForm");
   const resultadoDiv = document.getElementById("resultado");
-  const botaoModoEscuro = document.getElementById("modoEscuro");
-
-  // Alternar Modo Escuro
-  botaoModoEscuro.addEventListener("click", () => {
-    document.body.classList.toggle("dark-mode");
-    localStorage.setItem("darkMode", document.body.classList.contains("dark-mode"));
-  });
-
-  // Aplicar Modo Escuro salvo
-  if (localStorage.getItem("darkMode") === "true") {
-    document.body.classList.add("dark-mode");
-  }
-
-  // Cálculo do atraso
+ 
+   // Cálculo do atraso
   form.addEventListener("submit", (event) => {
     event.preventDefault();
     calcularAtraso();
