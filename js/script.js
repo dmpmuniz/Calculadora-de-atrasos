@@ -1,25 +1,44 @@
-document.addEventListener("DOMContentLoaded", function() {
-    const botaoModoEscuro = document.getElementById("modoEscuro");
-    const botaoAltoContraste = document.getElementById("altoContraste");
-    const botaoAumentarFonte = document.getElementById("aumentarFonte");
-    const botaoDiminuirFonte = document.getElementById("diminuirFonte");
-    const body = document.body;
+document.addEventListener("DOMContentLoaded", () => {
+  const form = document.getElementById("calcForm");
+  const resultadoDiv = document.getElementById("resultado");
+  const botaoModoEscuro = document.getElementById("modoEscuro");
 
-    botaoModoEscuro.addEventListener("click", function() {
-        body.classList.toggle("modo-escuro");
-    });
+  // Alternar Modo Escuro
+  botaoModoEscuro.addEventListener("click", () => {
+    document.body.classList.toggle("dark-mode");
+    localStorage.setItem("darkMode", document.body.classList.contains("dark-mode"));
+  });
 
-    botaoAltoContraste.addEventListener("click", function() {
-        body.classList.toggle("alto-contraste");
-    });
+  // Aplicar Modo Escuro salvo
+  if (localStorage.getItem("darkMode") === "true") {
+    document.body.classList.add("dark-mode");
+  }
 
-    botaoAumentarFonte.addEventListener("click", function() {
-        body.classList.remove("fonte-menor");
-        body.classList.add("fonte-maior");
-    });
+  // Cálculo do atraso
+  form.addEventListener("submit", (event) => {
+    event.preventDefault();
+    calcularAtraso();
+  });
 
-    botaoDiminuirFonte.addEventListener("click", function() {
-        body.classList.remove("fonte-maior");
-        body.classList.add("fonte-menor");
-    });
+  function calcularAtraso() {
+    const dataRetirada = new Date(document.getElementById("dataRetirada").value);
+    const dataPrevista = new Date(document.getElementById("dataPrevista").value);
+    const dataEntrega = new Date(document.getElementById("dataEntrega").value);
+
+    if (dataEntrega > dataPrevista) {
+      const atrasoEmDias = Math.ceil((dataEntrega - dataPrevista) / (1000 * 60 * 60 * 24));
+      const dataSuspensao = new Date(dataEntrega);
+      dataSuspensao.setDate(dataSuspensao.getDate() + atrasoEmDias);
+      const dataLimite = new Date(dataEntrega);
+      dataLimite.setMonth(dataLimite.getMonth() + 3);
+
+      if (dataSuspensao > dataLimite) {
+        resultadoDiv.innerHTML = `Tempo de atraso: ${atrasoEmDias} dias.<br>Suspenso até: ${dataLimite.toLocaleDateString()} (limite máximo de 3 meses).`;
+      } else {
+        resultadoDiv.innerHTML = `Tempo de atraso: ${atrasoEmDias} dias.<br>Suspenso até: ${dataSuspensao.toLocaleDateString()}.`;
+      }
+    } else {
+      resultadoDiv.innerHTML = "Sem atraso. Obrigado por devolver no prazo!";
+    }
+  }
 });
