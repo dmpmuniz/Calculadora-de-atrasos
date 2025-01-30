@@ -4,87 +4,20 @@
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>Calculadora de Atraso</title>
-  <style>
-    body {
-      font-family: Arial, sans-serif;
-      margin: 20px;
-      padding: 20px;
-      background-color: #f9f9f9;
-      color: #333;
-    }
-    h1 {
-      color: #222;
-      text-align: center;
-    }
-    form {
-      max-width: 400px;
-      margin: 0 auto;
-    }
-    label, input, button {
-      display: block;
-      width: 100%;
-      margin: 10px 0;
-    }
-    input, button {
-      padding: 10px;
-      font-size: 16px;
-    }
-    button {
-      background-color: #007BFF;
-      color: white;
-      border: none;
-      cursor: pointer;
-    }
-    button:hover {
-      background-color: #0056b3;
-    }
-    #resultado {
-      margin-top: 20px;
-      padding: 15px;
-      background-color: #e9f7ef;
-      border: 1px solid #28a745;
-      color: #155724;
-      text-align: center;
-    }
-    footer {
-      margin-top: 30px;
-      text-align: center;
-      font-size: 14px;
-      color: #555;
-    }
-    footer a {
-      color: #007BFF;
-      text-decoration: none;
-    }
-    footer a:hover {
-      text-decoration: underline;
-    }
-  </style>
-
-<!-- Google tag (gtag.js) -->
-<script async src="https://www.googletagmanager.com/gtag/js?id=G-VRG521VEKE"></script>
-<script>
-  window.dataLayer = window.dataLayer || [];
-  function gtag(){dataLayer.push(arguments);}
-  gtag('js', new Date());
-
-  gtag('config', 'G-VRG521VEKE');
-</script>
-
-  <script>
-  if ("serviceWorker" in navigator) {
-    navigator.serviceWorker.register("/service-worker.js").then(() => {
-      console.log("Service Worker registrado com sucesso.");
-    }).catch((error) => {
-      console.log("Falha ao registrar Service Worker:", error);
-    });
-  }
-</script>
-  
+  <link rel="stylesheet" href="css/style.css">
+  <link rel="manifest" href="manifest.json">
 </head>
 <body>
-  <h1>Calculadora de Atraso</h1>
-  <form onsubmit="event.preventDefault(); calcularAtraso();">
+  <h1 id="titulo">Calculadora de Atraso</h1>
+  
+  <div class="acessibilidade">
+    <button id="modoEscuro" aria-label="Alternar modo escuro">🌙 Modo Escuro</button>
+    <button id="altoContraste" aria-label="Ativar alto contraste">🔳 Alto Contraste</button>
+    <button id="aumentarFonte" aria-label="Aumentar fonte">🔠 A+</button>
+    <button id="diminuirFonte" aria-label="Diminuir fonte">🔡 A-</button>
+  </div>
+
+  <form id="calcForm">
     <label for="dataRetirada">Data da Retirada:</label>
     <input type="date" id="dataRetirada" required>
 
@@ -97,38 +30,14 @@
     <button type="submit">Calcular</button>
   </form>
 
-  <div id="resultado"></div>
+  <div id="resultado" tabindex="0"></div>
+  <button id="lerResultado" aria-label="Ler resultado em voz alta">🔊 Ouvir Resultado</button>
 
   <footer>
-    Criado por Daniel Muniz (2025 - Versão 1.0). Veja mais projetos no <a href="https://github.com/dmpmuniz" target="_blank">meu GitHub</a>.
+    Criado por Daniel Muniz (2025 - Versão 1.1). Veja mais projetos no 
+    <a href="https://github.com/dmpmuniz" target="_blank">meu GitHub</a>.
   </footer>
 
-  <script>
-    function calcularAtraso() {
-      const dataRetirada = new Date(document.getElementById("dataRetirada").value);
-      const dataPrevista = new Date(document.getElementById("dataPrevista").value);
-      const dataEntrega = new Date(document.getElementById("dataEntrega").value);
-      const resultadoDiv = document.getElementById("resultado");
-
-      if (dataEntrega > dataPrevista) {
-        const atrasoEmMilissegundos = dataEntrega - dataPrevista;
-        const atrasoEmDias = Math.ceil(atrasoEmMilissegundos / (1000 * 60 * 60 * 24));
-
-        const dataSuspensao = new Date(dataEntrega);
-        dataSuspensao.setDate(dataSuspensao.getDate() + atrasoEmDias);
-
-        const dataLimite = new Date(dataEntrega);
-        dataLimite.setMonth(dataLimite.getMonth() + 3);
-
-        if (dataSuspensao > dataLimite) {
-          resultadoDiv.innerHTML = `Tempo de atraso: ${atrasoEmDias} dias.<br>Suspenso até: ${dataLimite.toLocaleDateString()} (limite máximo de 3 meses).`;
-        } else {
-          resultadoDiv.innerHTML = `Tempo de atraso: ${atrasoEmDias} dias.<br>Suspenso até: ${dataSuspensao.toLocaleDateString()}.`;
-        }
-      } else {
-        resultadoDiv.innerHTML = "Sem atraso. Obrigado por devolver no prazo!";
-      }
-    }
-  </script>
+  <script src="js/script.js"></script>
 </body>
 </html>
