@@ -8,12 +8,6 @@ body {
   transition: background 0.3s, color 0.3s;
 }
 
-/* Estilo do modo escuro */
-body.dark-mode {
-  background-color: #222;
-  color: #fff;
-}
-
 /* Título */
 h1 {
   color: #222;
