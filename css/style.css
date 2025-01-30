@@ -1,15 +1,26 @@
+/* Estilos gerais */
 body {
   font-family: Arial, sans-serif;
   margin: 20px;
   padding: 20px;
   background-color: #f9f9f9;
   color: #333;
+  transition: background 0.3s, color 0.3s;
 }
 
+/* Estilo do modo escuro */
+body.dark-mode {
+  background-color: #222;
+  color: #fff;
+}
+
+/* Título */
 h1 {
+  color: #222;
   text-align: center;
 }
 
+/* Formulário */
 form {
   max-width: 400px;
   margin: 0 auto;
@@ -37,6 +48,7 @@ button:hover {
   background-color: #0056b3;
 }
 
+/* Resultado */
 #resultado {
   margin-top: 20px;
   padding: 15px;
@@ -46,6 +58,7 @@ button:hover {
   text-align: center;
 }
 
+/* Rodapé */
 footer {
   margin-top: 30px;
   text-align: center;
@@ -60,23 +73,4 @@ footer a {
 
 footer a:hover {
   text-decoration: underline;
-}
-
-/* Acessibilidade */
-.modo-escuro {
-  background-color: #121212;
-  color: #f9f9f9;
-}
-
-.alto-contraste {
-  background-color: black;
-  color: yellow;
-}
-
-.fonte-maior {
-  font-size: 20px;
-}
-
-.fonte-menor {
-  font-size: 14px;
 }
