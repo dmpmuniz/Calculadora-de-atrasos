@@ -6,16 +6,31 @@
   <title>Calculadora de Atraso</title>
   <link rel="stylesheet" href="css/style.css">
   <link rel="manifest" href="manifest.json">
+  
+  <!-- Google Analytics -->
+  <script async src="https://www.googletagmanager.com/gtag/js?id=G-VRG521VEKE"></script>
+  <script>
+    window.dataLayer = window.dataLayer || [];
+    function gtag(){dataLayer.push(arguments);}
+    gtag('js', new Date());
+    gtag('config', 'G-VRG521VEKE');
+  </script>
+
+  <!-- Registrar Service Worker -->
+  <script>
+    if ("serviceWorker" in navigator) {
+      navigator.serviceWorker.register("service-worker.js").then(() => {
+        console.log("Service Worker registrado com sucesso.");
+      }).catch((error) => {
+        console.log("Falha ao registrar Service Worker:", error);
+      });
+    }
+  </script>
 </head>
 <body>
-  <h1 id="titulo">Calculadora de Atraso</h1>
+  <h1>Calculadora de Atraso</h1>
   
-  <div class="acessibilidade">
-    <button id="modoEscuro" aria-label="Alternar modo escuro">🌙 Modo Escuro</button>
-    <button id="altoContraste" aria-label="Ativar alto contraste">🔳 Alto Contraste</button>
-    <button id="aumentarFonte" aria-label="Aumentar fonte">🔠 A+</button>
-    <button id="diminuirFonte" aria-label="Diminuir fonte">🔡 A-</button>
-  </div>
+  <button id="modoEscuro">🌙 Alternar Modo Escuro</button>
 
   <form id="calcForm">
     <label for="dataRetirada">Data da Retirada:</label>
@@ -30,11 +45,10 @@
     <button type="submit">Calcular</button>
   </form>
 
-  <div id="resultado" tabindex="0"></div>
-  <button id="lerResultado" aria-label="Ler resultado em voz alta">🔊 Ouvir Resultado</button>
+  <div id="resultado"></div>
 
   <footer>
-    Criado por Daniel Muniz (2025 - Versão 1.1). Veja mais projetos no 
+    Criado por Daniel Muniz (2025 - Versão 1.0). Veja mais projetos no 
     <a href="https://github.com/dmpmuniz" target="_blank">meu GitHub</a>.
   </footer>
 
