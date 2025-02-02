@@ -3,188 +3,36 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  
-  <!-- Meta Tags PWA -->
-  <meta name="theme-color" content="#007BFF">
-  <meta name="description" content="Calculadora de suspensão por atraso na devolução de livros">
-  <link rel="manifest" href="/manifest.webmanifest">
-  <link rel="apple-touch-icon" href="/icon-192.png">
-
-  <title>Calculadora de Atraso</title>
-
-  <style>
-    :root {
-      --primary-color: #007BFF;
-      --secondary-color: #0056b3;
-      --success-bg: #e9f7ef;
-      --success-border: #28a745;
-    }
-
-    body {
-      font-family: system-ui, -apple-system, sans-serif;
-      margin: 0;
-      padding: 20px;
-      min-height: 100vh;
-      background-color: #f9f9f9;
-      color: #333;
-      display: flex;
-      flex-direction: column;
-    }
-
-    main {
-      max-width: 500px;
-      margin: 20px auto;
-      width: 100%;
-      flex-grow: 1;
-    }
-
-    h1 {
-      color: var(--primary-color);
-      text-align: center;
-      margin: 20px 0;
-    }
-
-    form {
-      background: white;
-      padding: 20px;
-      border-radius: 8px;
-      box-shadow: 0 2px 4px rgba(0,0,0,0.1);
-    }
-
-    label {
-      margin: 15px 0 5px;
-      font-weight: 500;
-    }
-
-    input, button {
-      width: 100%;
-      padding: 12px;
-      margin: 5px 0 15px;
-      border: 1px solid #ddd;
-      border-radius: 4px;
-      font-size: 16px;
-    }
-
-    button {
-      background-color: var(--primary-color);
-      color: white;
-      font-weight: bold;
-      cursor: pointer;
-      transition: background-color 0.3s;
-    }
-
-    button:hover {
-      background-color: var(--secondary-color);
-    }
-
-    #resultado {
-      padding: 15px;
-      margin-top: 20px;
-      border-radius: 4px;
-      background-color: var(--success-bg);
-      border: 1px solid var(--success-border);
-      color: #155724;
-    }
-
-    footer {
-      text-align: center;
-      padding: 20px;
-      color: #666;
-      font-size: 0.9em;
-    }
-
-    @media (prefers-color-scheme: dark) {
-      body {
-        background: #121212;
-        color: #fff;
-      }
-      
-      form {
-        background: #242424;
-      }
-      
-      input {
-        background: #2d2d2d;
-        border-color: #404040;
-        color: white;
-      }
-    }
-  </style>
-</head>
-
-<body>
-  <main>
-    <h1>Calculadora de Atraso</h1>
-    
-    <form id="calcForm">
-      <label for="dataRetirada">Data da Retirada:</label>
-      <input type="date" id="dataRetirada" required>
-      
-      <label for="dataPrevista">Data Prevista de Devolução:</label>
-      <input type="date" id="dataPrevista" required>
-      
-      <label for="dataEntrega">Data de Entrega:</label>
-      <input type="date" id="dataEntrega" required>
-      
-      <button type="submit">Calcular</button>
-    </form>
-
-    <div id="resultado"></div>
-  </main>
-
-  <footer>
-    Criado por Daniel Muniz (2025 - Versão 1.0)<br>
-    <a href="https://github.com/dmpmuniz" target="_blank" rel="noopener">GitHub</a>
-  </footer>
-
-  <!-- Analytics e Service Worker -->
+  <title>calculadora de suspensão por atraso na devolução de livros!</title>
+  <link rel="stylesheet" href="css/style.css">
+  <script async src="https://www.googletagmanager.com/gtag/js?id=G-VRG521VEKE"></script>
   <script>
-    // Service Worker Registration
-    if ('serviceWorker' in navigator) {
-      window.addEventListener('load', () => {
-        navigator.serviceWorker.register('/sw.js')
-          .then(registration => console.log('SW registrado:', registration.scope))
-          .catch(err => console.log('SW falhou:', err));
-      });
-    }
-
-    // Google Analytics
     window.dataLayer = window.dataLayer || [];
     function gtag(){dataLayer.push(arguments);}
     gtag('js', new Date());
     gtag('config', 'G-VRG521VEKE');
-
-    // Cálculo de Atraso
-    document.getElementById('calcForm').addEventListener('submit', function(e) {
-      e.preventDefault();
-      
-      const dataRetirada = new Date(document.getElementById("dataRetirada").value);
-      const dataPrevista = new Date(document.getElementById("dataPrevista").value);
-      const dataEntrega = new Date(document.getElementById("dataEntrega").value);
-      const resultadoDiv = document.getElementById("resultado");
-
-      if (!dataRetirada || !dataPrevista || !dataEntrega) {
-        resultadoDiv.textContent = "Por favor, preencha todas as datas!";
-        return;
-      }
-
-      if (dataEntrega > dataPrevista) {
-        const atrasoEmDias = Math.ceil((dataEntrega - dataPrevista) / 86400000);
-        const dataSuspensao = new Date(dataEntrega);
-        dataSuspensao.setDate(dataSuspensao.getDate() + atrasoEmDias);
-        
-        const dataLimite = new Date(dataEntrega);
-        dataLimite.setMonth(dataLimite.getMonth() + 3);
-
-        resultadoDiv.innerHTML = dataSuspensao > dataLimite ?
-          `Tempo de atraso: ${atrasoEmDias} dias.<br>Suspenso até: ${dataLimite.toLocaleDateString()} (limite máximo)` :
-          `Tempo de atraso: ${atrasoEmDias} dias.<br>Suspenso até: ${dataSuspensao.toLocaleDateString()}`;
-      } else {
-        resultadoDiv.textContent = "Sem atraso. Obrigado por devolver no prazo!";
-      }
-    });
   </script>
+  <script defer src="js/script.js"></script>
+</head>
+<body>
+  <h1>Calculadora de suspensão</h1>
+  <form id="atrasoForm">
+    <label for="dataRetirada">Data de Emprestimo:</label>
+    <input type="date" id="dataRetirada" required>
 
-  <script async src="https://www.googletagmanager.com/gtag/js?id=G-VRG521VEKE"></script>
+    <label for="dataPrevista">Data Prevista de Devolução:</label>
+    <input type="date" id="dataPrevista" required>
+
+    <label for="dataEntrega">Data de Entrega:</label>
+    <input type="date" id="dataEntrega" required>
+
+    <button type="submit">Calcular Tempo de Suspenção</button>
+  </form>
+
+  <div id="resultado"></div>
+
+  <footer>
+    Criado por Daniel Muniz (2025 - Versão 1.1). Veja meus outros projetos no meu GitHub <a href="https://github.com/dmpmuniz" target="_blank">Clique Aqui</a>.
+  </footer>
 </body>
 </html>
